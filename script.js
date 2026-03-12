@@ -15,6 +15,11 @@ let lives = 3, running = false, isPaused = false, lastSpawn = 0;
 let soundOn = localStorage.getItem("soundOn") !== "false";
 let selectedRocketId = parseInt(localStorage.getItem("selectedRocketId")) || 0;
 
+// কন্ট্রোল স্টেট (নতুন যোগ করা হয়েছে)
+let moveLeft = false;
+let moveRight = false;
+const playerSpeed = 8; // রকেটের মুভমেন্ট স্পিড
+
 // এসেটস
 let player = { x: 0, y: 0, w: 50, h: 50 };
 let enemies = [], items = [], stars = [];
@@ -52,7 +57,7 @@ function askToExit() {
     else document.getElementById("confirmPopup").style.display = "grid";
 }
 
-// --- ডেইলি বোনাস (Daily Login Bonus) ---
+// --- ডেইলি বোনাস ---
 (function() {
     let last = localStorage.getItem("lastLogin");
     let today = new Date().toDateString();
@@ -89,6 +94,14 @@ function gameLoop() {
 function update() {
     let now = Date.now();
     stars.forEach(s => { s.y += s.sp; if(s.y > canvas.height) s.y = -5; });
+
+    // রকেট মুভমেন্ট লজিক (ফিক্সড)
+    if (moveLeft && player.x > 0) {
+        player.x -= playerSpeed;
+    }
+    if (moveRight && player.x < canvas.width - player.w) {
+        player.x += playerSpeed;
+    }
 
     let gap = Math.max(400, 1000 - (score / 15));
     if(now - lastSpawn > gap) {
@@ -127,7 +140,7 @@ function draw() {
 
 function rectHit(a, b) { return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y; }
 
-// --- স্টোর হ্যান্ডলিং (Rocket Buy/Select) ---
+// --- স্টোর হ্যান্ডলিং ---
 function showStore() {
     showPage("storePage");
     let unlocked = JSON.parse(localStorage.getItem("unlocked")) || [0];
@@ -219,15 +232,38 @@ function watchAd() {
     }, 5000);
 }
 
-const handleMove = (e) => {
+// --- নতুন স্মুথ টাচ কন্ট্রোল (ফিক্সড) ---
+const handleTouchStart = (e) => {
     if(!running || isPaused) return;
-    let inputX = e.touches ? e.touches[0].clientX : e.clientX;
-    player.x = inputX - player.w/2;
-    if(player.x < 0) player.x = 0;
-    if(player.x > canvas.width - player.w) player.x = canvas.width - player.w;
+    let touchX = e.touches[0].clientX;
+    // স্ক্রিনের বাম অর্ধে টাচ করলে বামে, ডান অর্ধে করলে ডানে
+    if (touchX < window.innerWidth / 2) {
+        moveLeft = true;
+        moveRight = false;
+    } else {
+        moveRight = true;
+        moveLeft = false;
+    }
 };
-canvas.addEventListener('mousemove', handleMove);
-canvas.addEventListener('touchmove', handleMove, {passive: false});
+
+const handleTouchEnd = () => {
+    moveLeft = false;
+    moveRight = false;
+};
+
+// ইভেন্ট লিসেনারগুলো আপডেট করা হয়েছে
+canvas.addEventListener('touchstart', handleTouchStart, {passive: false});
+canvas.addEventListener('touchend', handleTouchEnd);
+
+// পিসি গেমারদের জন্য কী-বোর্ড সাপোর্ট (বোনাস)
+window.addEventListener('keydown', (e) => {
+    if(e.key === "ArrowLeft") moveLeft = true;
+    if(e.key === "ArrowRight") moveRight = true;
+});
+window.addEventListener('keyup', (e) => {
+    if(e.key === "ArrowLeft") moveLeft = false;
+    if(e.key === "ArrowRight") moveRight = false;
+});
 
 function toggleSound() { soundOn = !soundOn; localStorage.setItem("soundOn", soundOn); document.getElementById("soundToggle").innerHTML = soundOn ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>'; }
 function showPage(id) { document.querySelectorAll(".page").forEach(p => p.classList.remove("active")); document.getElementById(id).classList.add("active"); }

@@ -59,3 +59,34 @@ body { margin: 0; background: var(--dark); color: white; font-family: 'Segoe UI'
 #playerName { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #333; background: #000; color: white; margin: 15px 0; text-align: center; }
 #canvas { display: block; width: 100%; height: 100%; }
 .floating-btn { position: fixed; top: 15px; right: 15px; z-index: 2001; background: var(--glass); border: 1px solid var(--neon); color: white; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; }
+
+/* গেম পেজের জন্য কন্ট্রোল ইন্ডিকেটর (ঐচ্ছিক কিন্তু সুন্দর দেখাবে) */
+#gamePage::before {
+	content: " ";
+	position: absolute;
+	bottom: 10px;
+	left: 20px;
+	font-size: 12px;
+	color: rgba(255, 255, 255, 0.2);
+	z-index: 5;
+	pointer-events: none;
+	border: 1px solid #5858585d;
+	width: 80px;
+	height: 124px;
+	background: #ffffff1c;
+}
+
+#gamePage::after {
+    content: " ";
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.2);
+    z-index: 5;
+    pointer-events: none;
+    border: 1px solid #5858585d;
+	width: 80px;
+	height: 124px;
+	background: #ffffff1c;
+}
