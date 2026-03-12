@@ -25,7 +25,23 @@ body { margin: 0; background: var(--dark); color: white; font-family: 'Segoe UI'
 .gold { color: #ffd700; text-shadow: 0 0 10px #ffd700; }
 
 /* HUD ডিজাইন */
-.hud { position: absolute; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px; z-index: 1000; }
+.hud {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 15px;
+	z-index: 1000;
+	gap: 40px;
+}
+.lives-display {
+	position: absolute;
+	top: 70px;
+	right: 0px;
+	display: grid;
+}
 .hud-btn { background: var(--glass); border: 1px solid white; color: white; width: 45px; height: 45px; border-radius: 12px; cursor: pointer; font-size: 1.2rem; }
 .score-container { text-align: center; }
 .score-label { margin: 0; font-size: 0.7rem; letter-spacing: 2px; color: #aaa; }
@@ -64,7 +80,7 @@ body { margin: 0; background: var(--dark); color: white; font-family: 'Segoe UI'
 #gamePage::before {
 	content: " ";
 	position: absolute;
-	bottom: 10px;
+	bottom: 30px;
 	left: 20px;
 	font-size: 12px;
 	color: rgba(255, 255, 255, 0.2);
@@ -72,14 +88,14 @@ body { margin: 0; background: var(--dark); color: white; font-family: 'Segoe UI'
 	pointer-events: none;
 	border: 1px solid #5858585d;
 	width: 80px;
-	height: 124px;
+	height: 100px;
 	background: #ffffff1c;
 }
 
 #gamePage::after {
     content: " ";
     position: absolute;
-    bottom: 10px;
+    bottom: 30px;
     right: 20px;
     font-size: 12px;
     color: rgba(255, 255, 255, 0.2);
@@ -87,6 +103,85 @@ body { margin: 0; background: var(--dark); color: white; font-family: 'Segoe UI'
     pointer-events: none;
     border: 1px solid #5858585d;
 	width: 80px;
-	height: 124px;
+	height: 100px;
 	background: #ffffff1c;
+}
+/* লিডারবোর্ড কন্টেইনার */
+.records-container {
+    width: 90%;
+    max-width: 400px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* লিস্ট স্টাইল */
+.records-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.records-container li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    transition: transform 0.2s;
+    border-left: 4px solid transparent;
+}
+
+/* টপ ৩ প্লেয়ারের জন্য স্পেশাল কালার */
+.records-container li:nth-child(1) { 
+    border-left-color: #ffd700; /* Gold */
+    background: rgba(255, 215, 0, 0.1);
+}
+.records-container li:nth-child(2) { 
+    border-left-color: #c0c0c0; /* Silver */
+    background: rgba(192, 192, 192, 0.1);
+}
+.records-container li:nth-child(3) { 
+    border-left-color: #cd7f32; /* Bronze */
+    background: rgba(205, 127, 50, 0.1);
+}
+
+/* নাম এবং স্কোরের স্টাইল */
+.records-container li span:first-child {
+    font-weight: bold;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+}
+
+.records-container li span:last-child {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    color: var(--neon); /* আপনার আগের নিওন ভ্যারিয়েবল */
+    text-shadow: 0 0 10px var(--neon);
+}
+
+/* হোভার ইফেক্ট */
+.records-container li:hover {
+    transform: scale(1.02);
+    background: rgba(255, 255, 255, 0.08);
+}
+.back-icon {
+	background: var(--glass);
+	border: 1px solid white;
+	color: white;
+	width: 45px;
+	height: 45px;
+	border-radius: 12px;
+	cursor: pointer;
+	font-size: 1.2rem;
+    margin-top: 15px;
+}
+.header-nav{
+    padding: 0 15px;
 }

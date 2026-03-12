@@ -18,7 +18,7 @@ let selectedRocketId = parseInt(localStorage.getItem("selectedRocketId")) || 0;
 // কন্ট্রোল স্টেট (নতুন যোগ করা হয়েছে)
 let moveLeft = false;
 let moveRight = false;
-const playerSpeed = 8; // রকেটের মুভমেন্ট স্পিড
+const playerSpeed = 5; // রকেটের মুভমেন্ট স্পিড
 
 // এসেটস
 let player = { x: 0, y: 0, w: 50, h: 50 };
@@ -79,7 +79,7 @@ function startGame() {
     running = true; isPaused = false;
     lastSpawn = Date.now();
     player.x = canvas.width/2 - 25;
-    player.y = canvas.height - 120;
+    player.y = canvas.height - 200;
     showPage("gamePage");
     updateHUD();
     gameLoop();
