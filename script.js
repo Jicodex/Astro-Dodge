@@ -3,10 +3,10 @@ const ctx = canvas.getContext("2d");
 
 // --- গেম কনফিগারেশন ---
 const ROCKETS = [
-    { id: 0, img: "./rocket/rocket.png", price: 0 },
-    { id: 1, img: "./rocket/rocket.gif", price: 200 },
-    { id: 2, img: "rocket2.png", price: 500 },
-    { id: 3, img: "rocket3.png", price: 1000 }
+    { id: 0, img: "./rocket/rocket_01.png", price: 0 },
+    { id: 1, img: "./rocket/rocket_02.gif", price: 200 },
+    { id: 2, img: "./rocket/rocket_03.png", price: 250 },
+    { id: 3, img: "./rocket/rocket_04.png", price: 320 }
 ];
 
 // গেম স্টেট
@@ -133,7 +133,7 @@ function draw() {
     stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x, s.y, s.sz, 0, Math.PI*2); ctx.fill(); });
     ctx.drawImage(imgP, player.x, player.y, player.w, player.h);
     
-    let eImg = new Image(); eImg.src = "enemy.gif";
+    let eImg = new Image(); eImg.src = "./enemy/enemy.png";
     enemies.forEach(en => ctx.drawImage(eImg, en.x, en.y, en.w, en.h));
     items.forEach(it => ctx.drawImage(it.type === "coin" ? imgC : imgL, it.x, it.y, it.w, it.h));
 }
