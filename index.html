@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rocket Dodge Pro Ultra</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <button id="soundToggle" class="floating-btn" onclick="toggleSound()">
+        <i class="fas fa-volume-up"></i>
+    </button>
+
+    <div id="startPage" class="page active">
+        <div class="scroll-wrapper">
+            <h1 class="game-title">ROCKET<br><span class="neon">DODGE</span></h1>
+            
+            <div class="coin-stat neon-box">
+                <i class="fas fa-coins gold"></i> 
+                <span id="totalCoins">0</span>
+            </div>
+            
+            <div class="menu-container">
+                <button class="main-btn btn-play" onclick="startGame()">PLAY MISSION</button>
+                <button class="main-btn btn-blue" onclick="showStore()">GARAGE (STORE)</button>
+                <button class="main-btn btn-purple" onclick="showLeaderboard()">TOP PILOTS</button>
+                <button class="ad-btn" onclick="watchAd()">
+                    <i class="fas fa-video"></i> FREE COINS (+20)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="gamePage" class="page">
+        <div class="hud">
+            <div class="hud-left">
+                <button class="hud-btn" onclick="askToExit()"><i class="fas fa-arrow-left"></i></button>
+                <button class="hud-btn" onclick="togglePause()"><i id="pauseIcon" class="fas fa-pause"></i></button>
+            </div>
+            <div class="score-container">
+                <p class="score-label">SCORE</p>
+                <p id="currentScore" class="score-val">0</p>
+            </div>
+            <div id="livesBox" class="lives-display"></div>
+        </div>
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <div id="storePage" class="page">
+        <div class="header-nav">
+            <button class="back-icon" onclick="goStart()"><i class="fas fa-chevron-left"></i></button>
+            <h2>ROCKET SHOP</h2>
+        </div>
+        <div class="store-grid" id="rocketStore"></div>
+    </div>
+
+    <div id="leaderboardPage" class="page">
+        <div class="header-nav">
+            <button class="back-icon" onclick="goStart()"><i class="fas fa-chevron-left"></i></button>
+            <h2>TOP RECORDS</h2>
+        </div>
+        <div class="records-container" id="leaderboardList"></div>
+    </div>
+
+    <div id="msgPopup" class="popup">
+        <div class="popup-content scale-in">
+            <h3 id="popupTitle">NOTIFICATION</h3>
+            <p id="popupText">Message goes here...</p>
+            <button class="main-btn sm" onclick="closePopup('msgPopup')">GOT IT</button>
+        </div>
+    </div>
+
+    <div id="confirmPopup" class="popup">
+        <div class="popup-content scale-in">
+            <h3>QUIT MISSION?</h3>
+            <p>Your current score will be lost.</p>
+            <div class="popup-btns">
+                <button class="main-btn sm btn-pink" onclick="exitGame()">YES, QUIT</button>
+                <button class="main-btn sm btn-blue" onclick="closePopup('confirmPopup')">STAY</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="gameOverPopup" class="popup">
+        <div class="popup-content scale-in">
+            <h2 class="pink-text">CRASHED!</h2>
+            <p>Final Score: <span id="finalScore" class="neon">0</span></p>
+            <input type="text" id="playerName" placeholder="Pilot Name" maxlength="10">
+            <button class="main-btn" onclick="saveAndExit()">SAVE & EXIT</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
